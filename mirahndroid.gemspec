@@ -12,7 +12,6 @@ bin/mirahndroid
   )
   s.require_paths << 'lib'
   s.has_rdoc = true
-  s.extra_rdoc_files = ['README.rdoc','mirahndroid.rdoc']
   s.rdoc_options << '--title' << 'Git Like Interface' << '--main' << 'README.rdoc' << '-ri'
   s.bindir = 'bin'
   s.executables << 'mirahndroid'
