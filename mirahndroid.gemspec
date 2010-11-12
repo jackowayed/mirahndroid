@@ -1,18 +1,18 @@
+require 'rake'
+
 spec = Gem::Specification.new do |s| 
   s.name = 'mirahndroid'
   s.version = '0.0.01'
-  s.author = 'Your Name Here'
-  s.email = 'your@email.address.com'
-  s.homepage = 'http://your.website.com'
+  s.author = 'Daniel Jackoway'
+  s.email = 'mirahndroid@danieljackoway.com'
+  s.homepage = 'http://github.com/jackowayed/mirahndroid'
   s.platform = Gem::Platform::RUBY
-  s.summary = 'A description of your project'
+  s.summary = 'Easily generate a Mirah Android app'
 # Add your other files here if you make them
-  s.files = %w(
-bin/mirahndroid
-  )
+  s.files = FileList['[A-Z]*', "assets/**/*", "bin/*", 'lib/**/*'].to_a
   s.require_paths << 'lib'
-  s.has_rdoc = true
-  s.rdoc_options << '--title' << 'Git Like Interface' << '--main' << 'README.rdoc' << '-ri'
+  s.has_rdoc = false
   s.bindir = 'bin'
   s.executables << 'mirahndroid'
+  s.add "gli", "~> 1.1.3"
 end
