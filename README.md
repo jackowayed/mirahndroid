@@ -13,3 +13,7 @@ Create an app using `mirahndroid create` (use `mirahndroid help create` to see t
 You can compile your app by running `ant debug` in the root of your app.
 
 Install the and then install it by running `adb install -r bin/YourAppName-debug.apk`
+
+## License
+
+Mirahndroid is licensed under the MIT License. See COPYING for the full text.
