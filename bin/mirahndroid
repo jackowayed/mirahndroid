@@ -1,0 +1,72 @@
+#!/usr/bin/ruby
+# 1.9 adds realpath to resolve symlinks; 1.8 doesn't
+# have this method, so we add it so we get resolved symlinks
+# and compatibility
+unless File.respond_to? :realpath
+  class File
+    def self.realpath path
+      return realpath(File.readlink(path)) if symlink?(path)
+      path
+    end
+  end
+end
+$: << File.expand_path(File.dirname(File.realpath(__FILE__)) + '/../lib')
+require 'rubygems'
+require 'gli'
+require 'fileutils'
+require 'erb'
+
+include GLI
+
+#program_description "Write Android apps in Mirah"
+
+desc 'Create a project'
+command :create do |c|
+  c.desc 'Project name'
+  c.flag [:name, :n]
+
+  c.desc 'Target id of the new project [required]'
+  c.flag [:target, :t]
+
+  c.desc 'Location path of new project [required]'
+  c.flag [:path, :p]
+
+  c.desc 'Package name [required]'
+  c.flag [:package, :k]
+
+  c.desc 'Activity name [required]'
+  c.flag [:activity, :a]
+
+  c.action do |global_options,options,args|
+    [:target, :path, :package, :activity].each do |flag|
+      raise "#{flag} is a required " unless options[flag]
+    end
+
+    path = options[:path]
+    package = options[:package]
+    activity = options[:activity]
+    target = options[:target]
+    java_file_dir = File.join(path, "src", package.gsub('.', '/'))
+
+    # exclude params they didn't give
+    params = options.map do |opt|
+      opt[1] ? "--#{opt[0]} #{opt[1]}" : ''
+    end.join ' '
+
+    `android create project #{params}`
+    `patch #{File.join(path, 'build.xml')} build.xml.patch`
+    FileUtils.rm File.join(java_file_dir, activity + '.java')
+
+    mirah = ERB.new(File.read('starter_activity.mirah.erb')).result binding
+    File.open File.join(java_file_dir, activity + '.mirah'), 'w' do |f|
+      f << mirah
+    end
+
+    File.open File.join(path, 'default.properties'), 'a' do |f|
+      f << "target-version=#{target}\n"
+    end
+    puts "Project generated! Edit your starter activity at #{File.expand_path File.join(java_file_dir, activity + '.mirah')}"
+  end
+end
+
+GLI.run(ARGV)

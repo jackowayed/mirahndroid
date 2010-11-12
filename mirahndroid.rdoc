@@ -1,0 +1,5 @@
+= mirahndroid
+
+Generate this with
+    mirahndroid rdoc
+After you have described your command line interface
