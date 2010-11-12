@@ -1,5 +1,30 @@
-= mirahndroid
+= <tt>mirahndroid</tt>
 
-Generate this with
-    mirahndroid rdoc
-After you have described your command line interface
+    mirahndroid command_name [command-specific options] [--] arguments...
+
+* Use the command +help+ to get a summary of commands
+* Use the command <tt>help command_name</tt> to get a help for +command_name+
+* Use <tt>--</tt> to stop command line argument processing; useful if your arguments have dashes in them
+
+== Commands
+[<tt>create</tt>] Create a project
+[<tt>help</tt>] Shows list of commands or help for one command
+
+=== <tt>create </tt>
+
+Create a project
+
+
+
+==== Options
+These options are specified *after* the command.
+
+[<tt>--activity, -a arg</tt>] Activity name [required]
+[<tt>--name, -n arg</tt>] Project name
+[<tt>--package, -k arg</tt>] Package name [required]
+[<tt>--path, -p arg</tt>] Location path of new project [required]
+[<tt>--target, -t arg</tt>] Target id of the new project [required]
+=== <tt>help [command]</tt>
+
+Shows list of commands or help for one command
+
