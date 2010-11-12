@@ -14,5 +14,5 @@ spec = Gem::Specification.new do |s|
   s.has_rdoc = false
   s.bindir = 'bin'
   s.executables << 'mirahndroid'
-  s.add "gli", "~> 1.1.3"
+  s.add_dependency "gli", "~> 1.1.3"
 end
