@@ -46,7 +46,9 @@ command :create do |c|
     package = options[:package]
     activity = options[:activity]
     target = options[:target]
+
     java_file_dir = File.join(path, "src", package.gsub('.', '/'))
+    file_root = File.join File.dirname(__FILE__), '..'
 
     # exclude params they didn't give
     params = options.map do |opt|
@@ -54,10 +56,10 @@ command :create do |c|
     end.join ' '
 
     `android create project #{params}`
-    `patch #{File.join(path, 'build.xml')} build.xml.patch`
+    `patch #{File.join(path, 'build.xml')} #{File.join(file_root, "build.xml.patch")}`
     FileUtils.rm File.join(java_file_dir, activity + '.java')
 
-    mirah = ERB.new(File.read('starter_activity.mirah.erb')).result binding
+    mirah = ERB.new(File.read(File.join(file_root, 'starter_activity.mirah.erb'))).result binding
     File.open File.join(java_file_dir, activity + '.mirah'), 'w' do |f|
       f << mirah
     end
