@@ -56,10 +56,10 @@ command :create do |c|
     end.join ' '
 
     `android create project #{params}`
-    `patch #{File.join(path, 'build.xml')} #{File.join(file_root, "build.xml.patch")}`
+    `patch #{File.join(path, 'build.xml')} #{File.join(file_root, "assets/build.xml.patch")}`
     FileUtils.rm File.join(java_file_dir, activity + '.java')
 
-    mirah = ERB.new(File.read(File.join(file_root, 'starter_activity.mirah.erb'))).result binding
+    mirah = ERB.new(File.read(File.join(file_root, 'assets/starter_activity.mirah.erb'))).result binding
     File.open File.join(java_file_dir, activity + '.mirah'), 'w' do |f|
       f << mirah
     end
