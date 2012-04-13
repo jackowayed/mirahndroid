@@ -56,7 +56,8 @@ command :create do |c|
     end.join ' '
 
     `android create project #{params}`
-    `patch #{File.join(path, 'build.xml')} #{File.join(file_root, "assets/build.xml.patch")}`
+    #`patch #{File.join(path, 'build.xml')} #{File.join(file_root, "assets/build.xml.patch")}`
+    FileUtils.cp File.join(file_root, 'assets/custom_rules.xml'), File.join(path, 'custom_rules.xml')
     FileUtils.rm File.join(java_file_dir, activity + '.java')
 
     mirah = ERB.new(File.read(File.join(file_root, 'assets/starter_activity.mirah.erb'))).result binding
@@ -64,9 +65,6 @@ command :create do |c|
       f << mirah
     end
 
-    File.open File.join(path, 'default.properties'), 'a' do |f|
-      f << "target-version=#{target}\n"
-    end
     puts "Project generated! Edit your starter activity at #{File.expand_path File.join(java_file_dir, activity + '.mirah')}"
   end
 end
