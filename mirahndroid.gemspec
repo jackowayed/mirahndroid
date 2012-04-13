@@ -2,7 +2,7 @@ require 'rake'
 
 spec = Gem::Specification.new do |s| 
   s.name = 'mirahndroid'
-  s.version = '0.0.01'
+  s.version = '0.0.02'
   s.author = 'Daniel Jackoway'
   s.email = 'mirahndroid@danieljackoway.com'
   s.homepage = 'http://github.com/jackowayed/mirahndroid'
